@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="{% static 'css/messages.css' %}">
+	{% block style-link %}
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	{% endblock %}
+	<title>{% block title %}Base{% endblock %}</title>
+</head>
+<body>
+	<!-- Header Block -->
+	{% block header %}
+    <header>
+    	{% include 'core/navbar.html' %}
+
+    	{% block header-content %}
+        <div class="header-content">
+            <h1>
+              <span class="typer" id="main" data-words="Hey there!, Welcome :), I`m Milad, and, this is my, BLOG" data-delay="100" data-deleteDelay="1000"></span>
+              <span class="cursor" data-owner="main"></span>
+            </h1>
+            <p>Don’t be scared to present the real you to the world, authenticity is at the heart of success.</p>
+            <div class="srcollElement">
+                <img src="../static/img/fidget-spinner.gif" alt="fidget-spinner.gif">
+                Scroll Down
+            </div>
+        </div>
+        {% endblock %}
+    </header>
+
+	{% endblock %}
+
+	<!-- Content Block -->
+	{% block content%}{% endblock %}
+	
+	<!-- Footer Block -->
+	{% block footer %}
+        <footer>
+            CopyRight {% now 'Y' %} - All right reserved
+        </footer>
+	{% endblock %}
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+	<script async src="https://unpkg.com/typer-dot-js@0.1.0/typer.js"></script>
+</body>
+</html>

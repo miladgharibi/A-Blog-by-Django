@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block style-link %}
+	<link rel="stylesheet" href="{% static 'css/list.css' %}">
+	<link rel="stylesheet" href="{% static 'css/update_post.css' %}">
+{% endblock %}
+
+{% block title %}New{% endblock %}
+{% block header-content %}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+<!-- 	<form method="POST">
+		{% csrf_token %}
+		<label for="">Title:</label>
+		<input name="title" type="text">
+		<label for="">Cover Image</label>
+		<input type="file" accept="image/*">
+		<label for="">Text:</label>
+		<textarea name="text"></textarea>
+		<select name="status">
+			<option value="draft">Draft</option>
+			<option value="publish">Publish</option>
+		</select>
+		<button>Save</button>
+	</form> -->
+	<form method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form }}
+		<button>Save</button>
+	</form>
+</div>
+
+{% endblock %}
+
+<!-- Remove Footer -->
+{% block footer %}{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load attrs %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block style-link %}
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+        <link rel="stylesheet" href="{% static 'css/list.css' %}">
+    {% endblock %}
+    
+    {% block title %}Register{% endblock %}
+</head>
+<body>
+    {% block header-content %}{% endblock %}
+    {% block content %}
+
+    <div class="container">
+        {% include 'core/messages.html' %}
+        <form method="POST" class="login-form">
+            {% csrf_token %}
+            <h2>Sign Up</h2>
+            <div class="login-form-control">
+                {{ form.username.errors }}
+                {{ form.username|placeholder:'Enter your Username' }}
+                <label for="{{ form.username.id_for_label }}">Username</label>
+            </div>
+            <div class="login-form-control">
+                {{ form.password1.errors }}
+                {{ form.password1|placeholder:'Enter your Password' }}
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+            </div>
+            <div class="login-form-control">
+                {{ form.password2.errors }}
+                {{ form.password2|placeholder:'Repeat your password' }}
+                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+            </div>
+            <button class="login-form-button">Login</button>
+        </form>
+    </div>
+    {% endblock %}
+
+    {% block footer %}{% endblock %}
+
+</body>
+</html>

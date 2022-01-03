@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block style-link %}
+    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+{% endblock %}
+
+{% block title %}Blogs{% endblock %}
+{% block header-content %}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="category">
+        <div class="boxes">
+            {% for post in page_obj %}
+            <div class="box">
+                <img src="{{ post.cover.url }}" alt="Cover Jpg">
+                <div class="title">
+                    <h2>{{ post.title|slice:'10' }}</h2>
+                    <a class="btn" href="{% url 'blogs:detail' post.slug %}">READ</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% include 'core/paginator.html' %}
+
+{% endblock %}
+
+<!-- Remove Footer -->
+{% block footer %}{% endblock %}

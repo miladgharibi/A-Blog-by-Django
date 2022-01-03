@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    {% block title %}Home Page{% endblock %}
+</head>
+<body>
+    {% block content %}
+        <div class="container">
+            {% include 'core/messages.html' %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#001021" fill-opacity="1" d="M0,256L1440,64L1440,320L0,320Z"></path></svg>
+            <div class="about">
+                <h2>About</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere est non tenetur earum architecto, reiciendis? Minima doloremque ipsum iusto! Aut magnam unde maiores repellat, deserunt laborum qui itaque quisquam sed.
+                Sed fuga, laborum. Autem hic animi dolorum nobis dolor porro, fugit est voluptas corporis odit, temporibus qui! Qui cumque repudiandae atque dolorum, maiores dignissimos deserunt? Cumque quae facilis quisquam similique.
+                Necessitatibus, deserunt, repellat tempora, sequi fuga expedita placeat inventore aliquam fugiat aspernatur hic, repudiandae eum? Magni sed accusantium eum culpa atque voluptatem consectetur totam facere voluptatibus commodi nemo, reprehenderit labore?
+                Distinctio nobis, eum qui quod sit veniam veritatis quasi in harum eligendi debitis quo consectetur excepturi enim incidunt explicabo itaque. Veniam quas natus at pariatur voluptas quod voluptates recusandae obcaecati.
+                Optio aliquid cupiditate ut inventore voluptates possimus eos provident id exercitationem amet, laudantium modi fugiat cum minus! Repudiandae eos nobis adipisci suscipit consequuntur perspiciatis, ipsam, possimus impedit ex quaerat saepe!</p>
+            </div>
+            <svg class="svgAfterAbout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#001021" fill-opacity="1" d="M0,256L1440,64L1440,320L0,320Z"></path></svg>
+
+            <div class="contact">
+                <h2>Contact</h2>
+                <p>
+                    Call me right now or send an email easly.
+                    <div class="phone-call">
+                        <div class="phone-item">
+                            <i class="fas fa-phone-alt"></i>&nbsp;&nbsp;<span>+98-994-414-9920</span>
+                        </div>
+                        <div class="phone-item">
+                            <i class="fas fa-phone-alt"></i>&nbsp;&nbsp;<span>+98-918-439-2305</span>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <input class="contact-form-input" type="email" placeholder="enter your email here">
+                        <button class="contact-form-button">Send</button>
+                    </div>
+                </p>
+            </div>
+            
+            <svg class="svgWhite" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,128L1440,256L1440,320L0,320Z"></path></svg>
+            <section>
+                <div class="sidebar">
+                    <div class="title">Category</div>
+                    <ul>
+                        <li><a href="">Technology</a></li>
+                        <li><a href="">News</a></li>
+                        <li><a href="">Linux</a></li>
+                        <li><a href="">Programming</a></li>
+                    </ul>
+                </div>
+                <div class="lastPosts">
+                    {% for post in posts %}
+                    <div class="card">
+                        <div class="cover">
+                            <img src="{{ post.cover.url }}" alt="{{ post.cover.url }}">
+                        </div>
+                        <div class="body">
+                            <h2>{{ post.title }}</h2>
+                            <p>{{ post.text|slice:'200' }}</p>
+                            <div class="footer">
+                                <a href="{% url 'blogs:detail' post.slug %}" class="readMoreBtn">Read More</a>
+                                <div class="author-detail">{{ post.author }} - {{ post.updated }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    {% endblock %}
+</body>
+</html>
+

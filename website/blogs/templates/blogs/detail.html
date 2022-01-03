@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block style-link %}
+        <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+    {% endblock %}
+	{% block title %}Detail{% endblock %}
+</head>
+<body>
+    <!-- Make Header empty except Navbar -->
+    {% block header-content %}{% endblock %}
+
+    {% block content %}
+    <div class="container">
+    	<section>
+    		<div class="postHeader">
+                <div class="cover">
+                    <img src={{ object.cover.url }} alt="Post Cover">
+                </div>
+    			<h2 class="title">{{ object.title }}</h2>
+    			<div class="postInfo">
+    				<div class="author">
+    					<div class="avatar"></div>
+    					<span></span>
+    					<div class="author-name">{{ object.author }}</div>
+    				</div>
+    				<div class="postPublished">
+    					{{ object.created }}
+    				</div>
+    			</div>
+    		</div>
+    		<div class="postBody">
+    			{{ object.text }}
+    		</div>
+    	</section>
+    	
+    	<div class="comment">
+    		<form method="POST" class="comment-form">
+                {% csrf_token %}
+                <input name="post_pk" type="hidden" value="{{ object.pk }}">
+    			<textarea name="comment-text" class="comment-form-input" placeholder="Leave a comment.."></textarea>
+    			<button class="comment-form-button">Send</button>
+    		</form>
+            {% for comment in comment_list %}
+            <div class="comment-detail">
+                <div class="comment-detail-info">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span></span>
+                        <div class="author-name">{{ comment.author }}</div>
+                    </div>
+                    <div class="body">{{ comment.text }}</div>
+                    <div class="comment-published">{{ comment.created }}</div>
+                </div>
+            </div>
+            {% endfor %}
+    	</div>
+    </div>
+    {% endblock %}
+
+</body>
+</html>

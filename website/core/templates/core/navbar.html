@@ -1,0 +1,24 @@
+
+{% load static %}
+<nav class="navbar">
+    <div class="leftaction">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'dashboard:index' %}" class="profile-avatar"><i class="fas fa-user"></i></a>
+        {% endif %}
+        <div class="logo">Cuko</div>
+    </div>
+    <ul>
+        <li class="active"><a href="{% url 'core:home' %}">Home</a></li>
+        <li><a onclick="scroll_to_about()" href="#">About</a></li>
+        <li><a onclick="scroll_to_contact()" href="#">Contact</a></li>
+        <li><a href="{% url 'blogs:list' %}">Blog</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}" class="signInBtn">Sign In</a></li>
+        {% endif %}
+    </ul>
+    <svg class="menuBtn" xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20"><path fill="#000" fill-rule="evenodd" d="M60.85 51H57.7c-1.74 0-3.15 1.343-3.15 3v3c0 1.657 1.41 3 3.15 3h3.15c1.74 0 3.15-1.343 3.15-3v-3c0-1.657-1.41-3-3.15-3M49.3 51h-3.15C44.41 51 43 52.343 43 54v3c0 1.657 1.41 3 3.15 3h3.15c1.74 0 3.15-1.343 3.15-3v-3c0-1.657-1.41-3-3.15-3m11.55-11H57.7c-1.74 0-3.15 1.343-3.15 3v3c0 1.657 1.41 3 3.15 3h3.15c1.74 0 3.15-1.343 3.15-3v-3c0-1.657-1.41-3-3.15-3m-8.4 3v3c0 1.657-1.41 3-3.15 3h-3.15C44.41 49 43 47.657 43 46v-3c0-1.657 1.41-3 3.15-3h3.15c1.74 0 3.15 1.343 3.15 3" transform="translate(-43 -40)"/></svg>
+</nav>
+
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>

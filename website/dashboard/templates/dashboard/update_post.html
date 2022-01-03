@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block style-link %}
+	<link rel="stylesheet" href="{% static 'css/list.css' %}">
+	<link rel="stylesheet" href="{% static 'css/update_post.css' %}">
+{% endblock %}
+
+{% block title %}Edit{% endblock %}
+{% block header-content %}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+	<form method="POST">
+		{% csrf_token %}
+		{{ form }}
+		<button>update</button>
+	</form>
+</div>
+
+{% endblock %}
+
+<!-- Remove Footer -->
+{% block footer %}{% endblock %}
