@@ -7,8 +7,5 @@ ________________
 
 ![ArcoLinux_2022-01-03_18-29-07](https://user-images.githubusercontent.com/87430832/147946743-d95c82e6-9a86-4984-9431-5c602229f626.png)
 
-## Attention
-This project is free in every way and you can use it for both commercial and personal purposes :)
-
 ## License
 [GPL-3.0 License](https://github.com/miladgharibi/A-Blog-by-Django/blob/main/LICENSE)
