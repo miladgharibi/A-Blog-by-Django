@@ -1,5 +1,5 @@
 # A Webiste (weblog) that maded by __Django__
-Hello my friends, this is one of the fascinating projects that in a few days and completely using css and html and there are only 30 lines of js code in it, I hope you enjoy it and play an effective role in improving it. Thank You.
+Hello my friends, this is one of the fascinating projects that in a few days and completely using css and html and there are only 30 lines of js code in it, I hope you enjoy it and play an effective role in improving it. Thank You very much.
 
 ### Screenshots
 ________________
