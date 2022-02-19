@@ -1,49 +1,36 @@
 {% extends 'core/base.html' %}
-{% load static %}
-{% load attrs %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block style-link %}
-        <link rel="stylesheet" href="{% static 'css/login.css' %}">
-        <link rel="stylesheet" href="{% static 'css/list.css' %}">
-    {% endblock %}
-    
-    {% block title %}Register{% endblock %}
-</head>
-<body>
-    {% block header-content %}{% endblock %}
-    {% block content %}
+{% block title %}Register{% endblock title %}
 
-    <div class="container">
-        {% include 'core/messages.html' %}
-        <form method="POST" class="login-form">
-            {% csrf_token %}
-            <h2>Sign Up</h2>
-            <div class="login-form-control">
-                {{ form.username.errors }}
-                {{ form.username|placeholder:'Enter your Username' }}
-                <label for="{{ form.username.id_for_label }}">Username</label>
+{% block header %}
+    {% include 'core/navbar.html' %}
+{% endblock header %}
+
+{% block content %}
+    <main class="container my-5 d-flex justify-content-center align-items-center" style="background: rgba(57, 63, 84, 0.8);min-width: 100%;display: grid; place-items:center; min-height: 100vh;">
+        <div class="row" style="width: 100%; display: flex; justify-content: center;">
+            <div class="col-sm-4">
+                <form class="input-group flex-nowrap flex-column gap-4" method="POST">
+                    {% csrf_token %}
+                    <h1 class="display-4 text-white text-center">Sign Up</h1>
+                  <div class="webflow-style-input rounded">
+                    <input class="" name="username" type="text" placeholder="Enter your username.."></input>
+                  </div>
+                  <div class="webflow-style-input rounded">
+                    <input class="" name="email" type="text" placeholder="Enter your email.. (optional)"></input>
+                  </div>
+                  <div class="webflow-style-input rounded">
+                    <input class="" name="password1" type="password" placeholder="Enter your password.."></input>
+                  </div>
+                  <div class="webflow-style-input rounded">
+                    <input class="" name="password2" type="password" placeholder="Confirm your password.."></input>
+                  </div>
+                  <button class="btn btn-secondary btn-lg rounded">Register</button>
+                  <div class="text-white d-flex justify-content-center flex-wrap" style="cursor: default;">
+                      <span href="#">Already have an account? <a href="{% url 'login' %}" class="text-info">SignIn</a></span>
+                  </div>
+                </form>
             </div>
-            <div class="login-form-control">
-                {{ form.password1.errors }}
-                {{ form.password1|placeholder:'Enter your Password' }}
-                <label for="{{ form.password1.id_for_label }}">Password</label>
-            </div>
-            <div class="login-form-control">
-                {{ form.password2.errors }}
-                {{ form.password2|placeholder:'Repeat your password' }}
-                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
-            </div>
-            <button class="login-form-button">Login</button>
-        </form>
-    </div>
-    {% endblock %}
-
-    {% block footer %}{% endblock %}
-
-</body>
-</html>
+        </div>
+    </main>
+{% endblock content %}

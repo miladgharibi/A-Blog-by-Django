@@ -1,50 +1,32 @@
 {% extends 'core/base.html' %}
-{% load static %}
-{% load attrs %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	{% block style-link %}
-        <link rel="stylesheet" href="{% static 'css/login.css' %}">
-        <link rel="stylesheet" href="{% static 'css/list.css' %}">
-    {% endblock %}
-	
-    {% block title %}Login{% endblock %}
-</head>
-<body>
-    {% block header-content %}{% endblock %}
-    {% block content %}
+{% block title %}Login{% endblock title %}
 
-    <div class="container">
-        {% include 'core/messages.html' %}
-        <form method="POST" action="{% url 'login' %}" class="login-form">
-            {% csrf_token %}
-            <h2>Login</h2>
-            <div class="login-form-control">
-                {{ form.username.errors }}
-                {{ form.username|placeholder:'Enter the username or email' }}
-                <label for="{{ form.username.id_for_label }}">Username</label>
-            </div>
-            <div class="login-form-control">
-                {{ form.password.errors }}
-                {{ form.password|placeholder:'Enter the password' }}
-                <label for="{{ form.password.id_for_label }}">Password</label>
-            </div>
-            <button class="login-form-button">Login</button>
-            <div class="login-form-footer">
-                <a class="login-form-footer-button" href="">Forgot Your Password? click here</a>
-                <a class="login-form-footer-button" href="{% url 'signup' %}">Don`t have an account? sign up</a>
-            </div>
-        </form>
-    </div>
-    {% endblock %}
+{% block header %}
+	{% include 'core/navbar.html' %}
+{% endblock header %}
 
-    {% block footer %}{% endblock %}
-    <!-- <footer>CopyRight</footer> -->
+{% block content %}
+	<main class="container my-5 d-flex justify-content-center align-items-center" style="background: rgba(57, 63, 84, 0.8);min-width: 100%;display: grid; place-items:center; min-height: 100vh;">
+		<div class="row" style="width: 100%; display: flex; justify-content: center;">
+			<div class="col-sm-4">
+				<form class="input-group flex-nowrap flex-column gap-4" method="POST">
+					{% csrf_token %}
+					<h1 class="display-4 text-white text-center">Login</h1>
+				  <div class="webflow-style-input rounded">
+					<input class="" name="username" type="text" placeholder="What's your username?"></input>
+				  </div>
+				  <div class="webflow-style-input rounded">
+					<input class="" name="password1" type="password" placeholder="Enter your password.."></input>
+				  </div>
+				  <button class="btn btn-secondary btn-lg rounded">Login</button>
+				  <div class="text-white d-flex justify-content-between flex-wrap" style="cursor: default;">
+					  <span>Don`t have an account yet? <a href="{% url 'signup' %}" class="text-info">SignUp</a></span>
+					  <span>Forgot your password? <a href="#" class="text-info">Reset</a></span>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</main>
 
-    <script src="../static/js/main.js"></script>
-</body>
-</html>
+{% endblock content %}

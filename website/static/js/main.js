@@ -1,39 +1,16 @@
-let menuToggle = document.querySelector('.menuBtn');
-menuToggle.onclick = (event) => {
-    document.querySelector('.navbar ul').classList.toggle('active');
-    document.querySelector('.menuBtn').classList.toggle('active');    
-}
-
-let title_input = document.querySelector('#id_title');
-
-if (title_input){
-  $("#id_title").keyup(function() {
-    var Text = $(this).val();
-    Text = Text.toLowerCase();
-    Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
-    $("#id_slug").val(Text);        
+document.getElementById("id_title").addEventListener("input", function () {
+    let theSlug = slug(this.value);
+    document.getElementById("id_slug").value = theSlug;
   });
-}
 
-
-function scroll_to_about(event){
-  var pageId = $('.about');
-  if (window.location.pathname != '/'){
-    window.location.pathname = '/';
-    $("html, body").animate({ scrollTop: pageId.offset().top }, 10);
-  
-  } else {
-    $("html, body").animate({ scrollTop: pageId.offset().top }, 10);
-  };
-}
-
-function scroll_to_contact(event){
-  var pageId = $('.contact');
-  if (window.location.pathname != '/'){
-    window.location.pathname = '/';
-    $("html, body").animate({ scrollTop: pageId.offset().top }, 10);
-  
-  } else {
-    $("html, body").animate({ scrollTop: pageId.offset().top }, 10);
-  };
+function slug(titleStr){
+  titleStr = titleStr.replace(/^\s+|\s+$/g, '');
+  titleStr = titleStr.toLowerCase();
+  //persian support
+  titleStr = titleStr.replace(/[^a-z0-9_\s-ءاأإآؤئبتثجحخدذرزسشصضطظعغفقكلمنهويةى]#u/, '') 
+  // Collapse whitespace and replace by -
+      .replace(/\s+/g, '-')
+      // Collapse dashes
+      .replace(/-+/g, '-');
+  return titleStr;       
 }

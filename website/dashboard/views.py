@@ -5,9 +5,14 @@ from django.core.paginator import Paginator
 from django.views.generic import CreateView, UpdateView
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from .forms import CreatePostForm
+from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class IndexView(View):
+def data_validation(*args):
+	items = [True if item != '' else False for item in args]
+	return all(items)
+
+class IndexView(LoginRequiredMixin, View):
 	def get(self, request):
 		object_list = Post.objects.filter(author=request.user.pk)
 		paginator = Paginator(object_list, 6)
@@ -16,33 +21,57 @@ class IndexView(View):
 		context = {'page_obj': page_obj}
 		return render(request, 'dashboard/index.html', context)
 
-class AddPostView(View):
+class AddPostView(LoginRequiredMixin, View):
 	def get(self, request):
-		form = CreatePostForm()
-		context = {'form': form}
-		return render(request, 'dashboard/create_post.html', context)
+		context = {}
+		return render(request, 'dashboard/create_post.html',context)
 
 	def post(self, request):
-		form = CreatePostForm(request.POST or None, request.FILES or None)
-		if form.is_valid():
-			post = form.save(commit=False)
-			post.author = request.user
+		title = request.POST.get('title')
+		slug = request.POST.get('slug')
+		text = request.POST.get('text')
+		status = request.POST.get('status')
+		author = request.user
+
+		if data_validation(title, slug, text, status):
+			post = Post(
+				title=title,
+				slug=slug,
+				text=text,
+				author=request.user
+			)
 			post.save()
-			return redirect("dashboard:index")
+			return redirect('dashboard:index')
 
-		else:
-			return redirect("dashboard:add_post")
-
+		return redirect('dashboard:add_post')
 
 
-class DeletePostView(View):
+class DeletePostView(LoginRequiredMixin, View):
 	def get(self, request, slug):
 		post = get_object_or_404(Post, slug=slug)
 		post.delete()
 
 		return redirect('dashboard:index')
 
-class UpdatePostView(UpdateView):
-	model = Post
-	template_name = 'dashboard/update_post.html'
-	fields = ['title', 'slug', 'text', 'status']
+class UpdatePostView(LoginRequiredMixin, View):
+	def get(self, request, slug):
+		post = get_object_or_404(Post, slug=slug)
+		if request.user == post.author:
+			context = {
+				'form':post
+			}
+			return render(request, 'dashboard/update_post.html', context)
+		return redirect('core:home')
+
+
+	def post(self, request, slug):
+		post = get_object_or_404(Post, slug=slug)
+		if request.user == post.author:
+			post.title = request.POST.get('title')
+			post.slug = request.POST.get('slug')
+			post.text = request.POST.get('text')
+			post.status = request.POST.get('status')
+			post.save()
+
+			return redirect("dashboard:index")
+		return redirect("dashboard:index")

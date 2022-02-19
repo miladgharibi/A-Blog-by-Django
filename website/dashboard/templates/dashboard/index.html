@@ -1,54 +1,52 @@
 {% extends 'core/base.html' %}
-{% load static %}
 
-{% block style-link %}
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-{% endblock %}
+{% block title %}Your Dashboard{% endblock title %}
 
-{% block title %}Dashboard - {{ user.username }}{% endblock %}
-{% block header-content %}{% endblock %}
-
+{% block header %}
+  {% include 'core/navbar.html' %}
+{% endblock header %}
 
 {% block content %}
-<div class="container">
-	<div class="help">
-		<li>You can access the changes menu of that post by clicking on the corners of the cards</li>
-	</div>
-    <div class="category">
-        <div class="boxes">
-            {% if page_obj %}
-                {% for post in page_obj %}
-                <div class="box">
-                    <img src="{{ post.cover.url }}" alt="Cover Jpg">
-                    <div class="title">
-                        <h2>{{ post.title|slice:'10' }}</h2>
-                        <div class="group">
-                        	<div class="group-btn">
-                        		<a class="btn change" href="{% url 'dashboard:update_post' post.slug %}"><i class="fa-solid fa-pen"></i></a>    
-                        		<span class="tooltip">Change</span>                		
-                        	</div>
-                        	<div class="group-btn">
-                        		<a class="btn delete" href="{% url 'dashboard:delete_post' post.slug %}"><i class="fa-solid fa-ban"></i></a>
-                        		<span class="tooltip">Delete</span>
-                        	</div>
-                        	<div class="group-btn">
-                        		<a class="btn view" href="{% url 'blogs:detail' post.slug %}"><i class="fa-solid fa-eye"></i></a>
-                        		<span class="tooltip">View</span>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <h2 style="color: gray; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">You don`t have any post yet</h2>
-            {% endif %}
+{% if page_obj %}
+  <main class="container my-5 py-5">
+    <div class="row mt-5">
+      <h1 class="display-6 text-center mb-5">My Articles</h1>
+      {% for object in page_obj %}
+      <div class="col-sm-3">
+        <div class="card">
+          <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top" alt="Fissure in Sandstone"/>
+          <div class="card-body">
+            <h5 class="card-title" dir="auto">{{ object.title }}</h5>
+            <p class="card-text" dir="auto">{{ object.text|slice:'120' }}</p>
+            <div class="d-flex flex-column gap-2">
+              <a  href="{{ object.get_absolute_url }}" class="btn btn-primary d-flex align-items-center gap-2 justify-content-center">
+                <i class="fas fa-book-reader"></i>
+                <span class="tooltiptext">Read this article</span>
+              </a>
+              <a href="{% url 'dashboard:update_post' object.slug %}" class="btn btn-secondary d-flex align-items-center gap-2 justify-content-center">
+                <i class="fas fa-edit"></i>
+                <span>Edit this article</span>
+              </a>
+              <a href="{% url 'dashboard:delete_post' object.slug %}" class="btn btn-danger d-flex align-items-center gap-2 justify-content-center">
+                <i class="fas fa-pen"></i>
+                <span>Remv this article</span>
+              </a>
+            </div>
+          </div>
         </div>
-        <a class="add-post-btn" href="{% url 'dashboard:add_post' %}"><i class="fas fa-plus"></i></a>
+      </div>
+      {% endfor %}
     </div>
-    {% include 'core/paginator.html' %}
-</div>
+    {% else %}
+    <main class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 50vh;">
+      <h1>Your dashboard is empty !</h1>
+      <p class="note note-secondary">
+        <strong>Info: </strong>you can create your first article (post) from <a href="{% url 'dashboard:add_post' %}">here</a> and enjoy writing your life into a digital platform :)
+      </p>
+    </main>
+    {% endif %}
 
-{% endblock %}
-
-<!-- Remove Footer -->
-{% block footer %}{% endblock %}
+    <a class="floatingButton" href="{% url 'dashboard:add_post' %}">+</a>
+  
+  </main>
+{% endblock content %}

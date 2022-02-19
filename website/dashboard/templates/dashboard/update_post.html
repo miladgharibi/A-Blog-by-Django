@@ -1,25 +1,40 @@
 {% extends 'core/base.html' %}
-{% load static %}
 
-{% block style-link %}
-	<link rel="stylesheet" href="{% static 'css/list.css' %}">
-	<link rel="stylesheet" href="{% static 'css/update_post.css' %}">
-{% endblock %}
+{% block title %}Update Article{% endblock title %}
 
-{% block title %}Edit{% endblock %}
-{% block header-content %}{% endblock %}
-
+{% block header %}
+    {% include 'core/navbar.html' %}
+{% endblock header %}
 
 {% block content %}
-<div class="container">
-	<form method="POST">
-		{% csrf_token %}
-		{{ form }}
-		<button>update</button>
-	</form>
-</div>
-
-{% endblock %}
-
-<!-- Remove Footer -->
-{% block footer %}{% endblock %}
+    <main class="container my-5 d-flex justify-content-center align-items-center" style="background: rgba(57, 63, 84, 0.8);min-width: 100%;display: grid; place-items:center; min-height: 100vh;">
+        <div class="row" style="width: 100%; display: flex; justify-content: center;">
+            <div class="col-sm-4">
+                <form class="input-group flex-nowrap flex-column gap-4" method="POST">
+                  {% csrf_token %}
+                  <h1 class="display-4 text-white text-center">Update article</h1>
+                  <label class="label" for="id_title">Title</label>
+                  <div class="webflow-style-input rounded">
+                    <input id="id_title" class="" name="title" type="text" value="{{ form.title }}"></input>
+                  </div>
+                  <label class="label" for="id_slug">Slug</label>
+                  <div class="webflow-style-input rounded">
+                    <input id="id_slug" class="" name="slug" type="slug" value="{{ form.slug }}"></input>
+                  </div>
+                  <label class="label" for="id_text">Text</label>
+                  <div class="webflow-style-input rounded">
+                    <textarea name="text" id="id_text">{{ form.text }}</textarea>
+                  </div>
+                  <label class="label" for="id_status">Status</label>
+                  <div class="webflow-style-input rounded">
+                    <select id="id_status" name="status">
+                        <option value="publish" selected="">Publish</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                  </div>
+                  <button class="btn btn-secondary btn-lg rounded">update</button>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock content %}

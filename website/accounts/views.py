@@ -7,16 +7,12 @@ from django.contrib import messages
 # Create your views here.
 class LoginView(View):
 	def get(self, request):
-		context = {
-			'form': AuthenticationForm()
-		}
-		return render(request, 'registration/login.html', context)
+		return render(request, 'registration/login.html', {})
 
 	def post(self, request):
-		form = AuthenticationForm(data=request.POST)
-		if form.is_valid():
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
+		if request.POST.get('username') and request.POST.get('password1'):
+			username = request.POST.get('username')
+			password = request.POST.get('password1')
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
@@ -32,10 +28,7 @@ class LoginView(View):
 
 class SignUpView(View):
 	def get(self, request):
-		context = {
-			'form': UserCreationForm()
-		}
-		return render(request, 'registration/signup.html', context)
+		return render(request, 'registration/signup.html', {})
 
 
 	def post(self, request):

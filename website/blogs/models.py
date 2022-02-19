@@ -2,10 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-
 # Create your models here.
-def cover_upload_path(instance, filename):
-	return f"uploads/{filename}"
 
 class Post(models.Model):
 	class StatusChoices(models.TextChoices):
@@ -14,9 +11,8 @@ class Post(models.Model):
 
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=255)
-	slug  = models.SlugField(max_length=255)
-	cover = models.ImageField(upload_to=cover_upload_path)
-	status = models.CharField(max_length=255, choices=StatusChoices.choices, default=StatusChoices.DRAFT)
+	slug  = models.SlugField(max_length=255, unique=True, allow_unicode=True)
+	status = models.CharField(max_length=255, choices=StatusChoices.choices, default=StatusChoices.PUBLISH)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	text = models.TextField()
@@ -28,8 +24,11 @@ class Post(models.Model):
 		ordering = ['-created']
 
 	def get_absolute_url(self):
-		return reverse('dashboard:index')
+		return reverse("blogs:detail", kwargs={'slug':self.slug})
 
+	def update_slug(self, title):
+		self.slug = title
+		self.save()
 
 class Comment(models.Model):
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -42,3 +41,4 @@ class Comment(models.Model):
 
 	class Meta:
 		ordering = ['-created']
+

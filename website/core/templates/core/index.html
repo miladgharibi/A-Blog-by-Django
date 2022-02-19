@@ -1,79 +1,51 @@
 {% extends 'core/base.html' %}
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    {% block title %}Home Page{% endblock %}
-</head>
-<body>
-    {% block content %}
-        <div class="container">
-            {% include 'core/messages.html' %}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#001021" fill-opacity="1" d="M0,256L1440,64L1440,320L0,320Z"></path></svg>
-            <div class="about">
-                <h2>About</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere est non tenetur earum architecto, reiciendis? Minima doloremque ipsum iusto! Aut magnam unde maiores repellat, deserunt laborum qui itaque quisquam sed.
-                Sed fuga, laborum. Autem hic animi dolorum nobis dolor porro, fugit est voluptas corporis odit, temporibus qui! Qui cumque repudiandae atque dolorum, maiores dignissimos deserunt? Cumque quae facilis quisquam similique.
-                Necessitatibus, deserunt, repellat tempora, sequi fuga expedita placeat inventore aliquam fugiat aspernatur hic, repudiandae eum? Magni sed accusantium eum culpa atque voluptatem consectetur totam facere voluptatibus commodi nemo, reprehenderit labore?
-                Distinctio nobis, eum qui quod sit veniam veritatis quasi in harum eligendi debitis quo consectetur excepturi enim incidunt explicabo itaque. Veniam quas natus at pariatur voluptas quod voluptates recusandae obcaecati.
-                Optio aliquid cupiditate ut inventore voluptates possimus eos provident id exercitationem amet, laudantium modi fugiat cum minus! Repudiandae eos nobis adipisci suscipit consequuntur perspiciatis, ipsam, possimus impedit ex quaerat saepe!</p>
-            </div>
-            <svg class="svgAfterAbout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#001021" fill-opacity="1" d="M0,256L1440,64L1440,320L0,320Z"></path></svg>
 
-            <div class="contact">
-                <h2>Contact</h2>
-                <p>
-                    Call me right now or send an email easly.
-                    <div class="phone-call">
-                        <div class="phone-item">
-                            <i class="fas fa-phone-alt"></i>&nbsp;&nbsp;<span>+98-994-414-9920</span>
-                        </div>
-                        <div class="phone-item">
-                            <i class="fas fa-phone-alt"></i>&nbsp;&nbsp;<span>+98-918-439-2305</span>
-                        </div>
-                    </div>
-                    <div class="contact-form">
-                        <input class="contact-form-input" type="email" placeholder="enter your email here">
-                        <button class="contact-form-button">Send</button>
-                    </div>
-                </p>
-            </div>
-            
-            <svg class="svgWhite" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,128L1440,256L1440,320L0,320Z"></path></svg>
-            <section>
-                <div class="sidebar">
-                    <div class="title">Category</div>
-                    <ul>
-                        <li><a href="">Technology</a></li>
-                        <li><a href="">News</a></li>
-                        <li><a href="">Linux</a></li>
-                        <li><a href="">Programming</a></li>
-                    </ul>
-                </div>
-                <div class="lastPosts">
-                    {% for post in posts %}
-                    <div class="card">
-                        <div class="cover">
-                            <img src="{{ post.cover.url }}" alt="{{ post.cover.url }}">
-                        </div>
-                        <div class="body">
-                            <h2>{{ post.title }}</h2>
-                            <p>{{ post.text|slice:'200' }}</p>
-                            <div class="footer">
-                                <a href="{% url 'blogs:detail' post.slug %}" class="readMoreBtn">Read More</a>
-                                <div class="author-detail">{{ post.author }} - {{ post.updated }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </section>
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+  <main class="container my-5">
+    {% if user.is_authenticated %}
+    <p class="note note-success">
+      <strong>Information: </strong>Welcome back dear {{ user.username }}, we happy to see you again
+      if you wanna change your profile (...) just click that avatar on the top-right of the navbar and
+      you will redirect to settings page, we hope you enjoy staying with us thanks.
+    </p>
+    {% else %}
+    <p class="note note-info">
+      <strong>New info: </strong>Hi dear visitor if you are new here please first create 
+      an account and login to blog then continue it`s better experiance for you thanks :)
+    </p>
+    {% endif %}
+    <div class="row">
+      <article>
+        <h2>About us</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium distinctio odio fugiat sint, pariatur harum quasi laborum animi deleniti ratione, neque tempora, repellat nulla nostrum illum vel fuga repudiandae laboriosam.
+        Perferendis ipsa iste, quia commodi quasi obcaecati eligendi impedit iure unde quam accusamus totam, vitae eveniet maiores sunt aut omnis voluptatum, inventore enim error quo repellendus voluptate quos! Ducimus, in?
+        Omnis ipsam natus quod! Dolore officiis iusto sed cumque? Et, error iste enim ratione totam veritatis laborum. Qui delectus similique quam asperiores a eius quod doloremque, molestias maiores illo deserunt!
+        Accusamus nam et nostrum velit! Optio placeat ipsum repudiandae necessitatibus unde voluptatibus, suscipit culpa. Sed beatae porro architecto officia nihil, fuga fugit sint ipsam qui debitis minima! Numquam, facere quam.
+        Repellat illum totam molestiae ab corporis ad nesciunt, eum vero magnam quasi non sint necessitatibus deleniti voluptate odit quia sequi excepturi adipisci corrupti ipsum odio. Suscipit, dolores voluptate! Et, perferendis.
+        Eaque doloribus nisi nihil hic sed fugiat, laborum at quibusdam esse, voluptatibus, rem nam aut! Eius consectetur velit ducimus, cupiditate incidunt veniam explicabo sapiente modi? Nisi rem hic aliquid quia.
+        Tempora laboriosam, praesentium provident culpa sit repellendus at dolorem labore porro ipsam. Eaque totam, explicabo at ad quas eligendi nam nihil sapiente numquam, nostrum reprehenderit vero minima enim, temporibus dolorem!
+        Labore ut alias fugit adipisci delectus consectetur ad eos id voluptate sed dolorem, et optio quisquam iusto cum at, reprehenderit iste veniam necessitatibus ipsam numquam nihil unde aliquid deleniti. Iure.
+        Doloribus atque commodi libero voluptatibus quod voluptatem sapiente non assumenda, voluptas necessitatibus perspiciatis nam illo fugiat. Tempore iusto nulla nobis itaque. Architecto nam soluta dicta provident sapiente quidem totam commodi?
+        Obcaecati aliquam ipsum quidem nostrum consequuntur reiciendis at, numquam, itaque rem iusto molestias magni. Debitis ea necessitatibus aut, eum totam quod ex veniam harum, ullam accusamus aliquid. Libero, debitis dolor.</p>
+      </article>
+    </div>
+    <div class="row mt-5">
+      <h1 class="display-6 text-center mb-5">Last Articles</h1>
+      {% for object in posts %}
+      <div class="col-sm-3">
+        <div class="card">
+          <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top" alt="Fissure in Sandstone"/>
+          <div class="card-body">
+            <h5 class="card-title" dir="auto">{{ object.title }}</h5>
+            <p class="card-text" dir="auto">{{ object.text|slice:'120' }}</p>
+            <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Read</a>
+          </div>
         </div>
-    {% endblock %}
-</body>
-</html>
-
+      </div>
+      {% endfor %}
+    </div>
+  
+  </main>
+{% endblock content %}

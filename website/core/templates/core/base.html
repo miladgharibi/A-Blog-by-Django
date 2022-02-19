@@ -1,51 +1,204 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="{% static 'css/messages.css' %}">
-	{% block style-link %}
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
-	{% endblock %}
-	<title>{% block title %}Base{% endblock %}</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/input.css' %}">
 </head>
-<body>
-	<!-- Header Block -->
-	{% block header %}
+  <body>
+
+    {% block header %}
     <header>
-    	{% include 'core/navbar.html' %}
+        {% include 'core/navbar.html' %}
+            <!-- Background image -->
+            <div
+              class="p-5 text-center bg-image"
+              style="
+                background-image: url('./../../../static/img/cover2.jpg');
+                height: 100vh;
+                background-size: cover;
+              "
+            >
+              <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                <div class="px-5 d-flex justify-content-center align-items-center h-100">
+                  <div class="text-white" style="width: 500px;">
 
-    	{% block header-content %}
-        <div class="header-content">
-            <h1>
-              <span class="typer" id="main" data-words="Hey there!, Welcome :), I`m Milad, and, this is my, BLOG" data-delay="100" data-deleteDelay="1000"></span>
-              <span class="cursor" data-owner="main"></span>
-            </h1>
-            <p>Don’t be scared to present the real you to the world, authenticity is at the heart of success.</p>
-            <div class="srcollElement">
-                <img src="../static/img/fidget-spinner.gif" alt="fidget-spinner.gif">
-                Scroll Down
+                    <h1 class="mb-3">Find The Prefect Articles<br>Write Your Own Articles..</h1>
+                    <p class="mb-3">
+                        <form class="input-group my-form" method="GET" action="{% url 'blogs:list' %}">
+                            <input name="search" type="search" class="rounded" placeholder="Search"/>
+                            <button class="btn btn-success rounded"><i class="fas fa-search"></i></button>
+                        </form>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-        {% endblock %}
+            <!-- Background image -->
     </header>
+    {% endblock header %}
+    <!-- Start your project here-->
+    {% block content %}{% endblock content %}
+    <!-- End your project here-->
 
-	{% endblock %}
+    {% block paginator %}
+      {% include 'core/paginator.html' %}
+    {% endblock paginator %}
 
-	<!-- Content Block -->
-	{% block content%}{% endblock %}
-	
-	<!-- Footer Block -->
-	{% block footer %}
-        <footer>
-            CopyRight {% now 'Y' %} - All right reserved
-        </footer>
-	{% endblock %}
+    {% block messages %}
+    {% if messages %}
+    <div class="my-5" style="position: fixed; bottom:10px; left: 50%;min-width: clamp(300px, 100px, 300px); transform: translate(-50%, 0);">
+        {% for message in messages %}
+          {% if message.tags == 'error' %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% else %}
+          <div class="alert alert-success">
+            {{ message }}
+          </div>
+          {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endblock messages %}
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-	<script async src="https://unpkg.com/typer-dot-js@0.1.0/typer.js"></script>
-</body>
+    <!-- Start Footer -->
+    {% block footer %}
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <!-- Section: Social media -->
+        <section
+        class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+        >
+        <!-- Left -->
+        <div class="me-5 d-none d-lg-block">
+            <span>Get connected with us on social networks:</span>
+        </div>
+        <!-- Left -->
+    
+        <!-- Right -->
+        <div>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <!-- Right -->
+        </section>
+        <!-- Section: Social media -->
+    
+        <!-- Section: Links  -->
+        <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <!-- Content -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                <i class="fas fa-gem me-3"></i>Company name
+                </h6>
+                <p>
+                Here you can use rows and columns to organize your footer content. Lorem ipsum
+                dolor sit amet, consectetur adipisicing elit.
+                </p>
+            </div>
+            <!-- Grid column -->
+    
+    
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                Useful links
+                </h6>
+                <p>
+                <a href="#!" class="text-reset">Home</a>
+                </p>
+                <p>
+                <a href="#!" class="text-reset">Dashboard</a>
+                </p>
+                <p>
+                <a href="#!" class="text-reset">Login</a>
+                </p>
+                <p>
+                <a href="#!" class="text-reset">Contact</a>
+                </p>
+            </div>
+            <!-- Grid column -->
+    
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                Contact
+                </h6>
+                <p><i class="fas fa-home me-3"></i> Saqqez, Kurdistan, Iran</p>
+                <p>
+                <i class="fas fa-envelope me-3"></i>
+                info@example.com
+                </p>
+                <p><i class="fas fa-phone me-3"></i> +98 994 414 9920</p>
+                <p><i class="fas fa-phone me-3"></i> +98 918 439 2305</p>
+            </div>
+            <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+        </section>
+        <!-- Section: Links  -->
+    
+        <!-- Copyright -->
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2021 Copyright:
+        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Milad Gharibi</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    {% endblock footer %}
+    <!-- End Footer -->
+
+    <!-- MDB -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript">
+      let alerts = document.querySelector('.alert');
+      setTimeout(()=>{
+        alerts.style.display = 'none'
+      },2000)
+
+    </script>
+  </body>
 </html>

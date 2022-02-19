@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Blogs{% endblock title %}
+
+{% block content %}
+  <main class="container my-5">
+    {% if page_obj %}
+    <div class="row mt-5">
+      <h1 class="display-6 text-center mb-5">Articles</h1>
+      {% for object in page_obj %}
+      <div class="col-sm-3">
+        <div class="card">
+          <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top" alt="Fissure in Sandstone"/>
+          <div class="card-body">
+            <h5 class="card-title" dir="auto">{{ object.title }}</h5>
+            <p class="card-text" dir="auto">{{ object.text|slice:'120' }}</p>
+            <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Read</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <h1 class="text-center display-1">Nothing founds for {{ request.GET.search }} :(</h1>
+    {% endif %}
+  
+  </main>
+{% endblock content %}

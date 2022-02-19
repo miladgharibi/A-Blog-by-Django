@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-ifl9i%h&1yu9n=fz$m*1&vdtghex6eb9x0klx(6l$g^nf$z^g=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost','127.0.0.1', '192.168.1.102',
+]
 
 
 # Application definition
@@ -124,7 +126,7 @@ USE_TZ = True
 STATIC_URL  = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static/'),
 ]
 
 # Media file (user posted images and videos)

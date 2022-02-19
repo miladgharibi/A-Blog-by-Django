@@ -1,3 +1,4 @@
+from re import search
 from .models import Post, Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, DetailView, ListView
@@ -10,22 +11,31 @@ from django.core.paginator import Paginator
 
 class PostListView(View):
 	def get(self, request):
-		queryset = Post.objects.filter(status='publish')
-		paginator = Paginator(queryset, 6)
-		page_number = request.GET.get('page')
-		page_obj = paginator.get_page(page_number)
-		template_name = 'blogs/list.html'
+		if not request.GET.get('search'):
+			queryset = Post.objects.filter(status='publish')
+			paginator = Paginator(queryset, 6)
+			page_number = request.GET.get('page')
+			page_obj = paginator.get_page(page_number)
 
-		context = {
-			'page_obj': page_obj
-		}
-		return render(request, template_name, context)
+			context = {
+				'page_obj': page_obj
+			}
+		else:
+			search_query = request.GET.get('search')
+			queryset = Post.objects.filter(status='publish').filter(Q(title__icontains=search_query) | Q(text__icontains=search_query))
+			paginator = Paginator(queryset, 6)
+			page_number = request.GET.get('page')
+			page_obj = paginator.get_page(page_number)
+
+			context = {
+				'page_obj': page_obj
+			}
+		return render(request, 'blogs/index.html', context)
+
 
 class PostDetailView(View):
 	def get(self, request, slug):
-
 		post = get_object_or_404(Post, slug=slug)
-		user = get_object_or_404(User, username=request.user.username)
 		comments = Comment.objects.filter(post=post)
 
 		context = {
